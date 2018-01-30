@@ -7,14 +7,15 @@
 NEIS에 등록되어 있는 전국의 초등학교, 중학교, 고등학교
 
 ## 사용
-GET으로 받아 사용  
-|GET/POST|||
-|:---|:---|:---|
-|GET|countryCode|교육청 코드|
-|GET|schulCode|학교코드|
-|GET|insttNm|학교이름|
-|GET|schulCrseScCode|학교종류코드|
-|GET|schMmealScCode|급식종류코드|
+GET으로 받아 사용
+
+GET/POST| | |
+:---|:---|:---
+GET|countryCode|교육청 코드|
+GET|schulCode|학교코드|
+GET|insttNm|학교이름|
+GET|schulCrseScCode|학교종류코드|
+GET|schMmealScCode|급식종류코드|
 
 - 기본 URL : [juneyoung.me/api/school-meal/meal_api.php](juneyoung.me/api/school-meal/meal_api.php)<br>
 - 예시 URL : [http://juneyoung.me/api/school-meal/meal_api.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2/](http://juneyoung.me/api/school-meal/meal_api.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2/)
