@@ -10,15 +10,17 @@
 * Github : https://github.com/Juneyoung-Kang/school-meal/
 *
 * How to use?
-* http://juneyoung.kr/api/school-meal/meal_api.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2
+* http://juneyoung.kr/api/school-meal/meal_api_output.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2
 * 
 * For more information, visit github and see README.md
 *
 * Licensed under The MIT License
 */
 
+header('Refresh: 60');                        // refresh every 60sec
+
 error_reporting(0);                           // error reporting disable
-header("Content-type: application/json; charset=UTF-8");        // json type and UTF-8 encoding
+header("Content-type: text/html; charset=UTF-8");        // json type and UTF-8 encoding
 
 require "simple_html_dom.php";                // use 'simple_html_dom.php'
 
@@ -102,9 +104,7 @@ $array = array(
     '메뉴' => $final
 );
 
-// json encoding
-$json = json_encode($array, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
-
-// echo json
-echo $json;
+$fp = fopen('meal.json', 'w');
+fwrite($fp, json_encode($array, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+fclose($fp);
 ?>

@@ -10,7 +10,7 @@
 * Github : https://github.com/Juneyoung-Kang/school-meal/
 *
 * How to use?
-* http://juneyoung.kr/api/school-meal/meal_api.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2
+* http://juneyoung.kr/api/school-meal/meal_api_tomorrow.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2
 * 
 * For more information, visit github and see README.md
 *
@@ -27,17 +27,14 @@ $schulCode =  $_GET['schulCode'];             // school code
 $insttNm = $_GET['insttNm'];                  // school name
 $schulCrseScCode = $_GET['schulCrseScCode'];  // school levels code
 $schMmealScCode = $_GET['schMmealScCode'];    // meal kinds code
-
-// custom date
-// $schYmd = $_GET['schYmd'];
+$time = time();
+$today = date("Y.m.d", strtotime("+9 hours", $time));
+$schYmd = $today;
 
 $MENU_URL = "sts_sci_md01_001.do";            // view weekly table
 
-$today=date("Y.m.d");                         // get date using date() function. ex) 2018.01.01
-$day=date("w");                               // get day using date() function. ex) 0==Sunday, 1==Monday, 6==Saturday
-
 // url for today
-$URL="http://" . $countryCode . "/" . $MENU_URL . "?schulCode=" . $schulCode . "&insttNm=" . urlencode( $insttNm ) . "&schulCrseScCode=" . $schulCrseScCode . "&schMmealScCode=" . $schMmealScCode . "&schYmd=" . $today;
+$URL="http://" . $countryCode . "/" . $MENU_URL . "?schulCode=" . $schulCode . "&insttNm=" . urlencode( $insttNm ) . "&schulCrseScCode=" . $schulCrseScCode . "&schMmealScCode=" . $schMmealScCode . "&schYmd=" . $schYmd;
 
 // DOMDocument
 $dom=new DOMDocument;
@@ -51,6 +48,12 @@ $table=$dom->getElementsByTagName('table');
 $tbody=$table->item(0)->getElementsByTagName('tbody');
 $rows=$tbody->item(0)->getElementsByTagName('tr');
 $cols=$rows->item(1)->getElementsByTagName('td');
+
+// reset date format
+$schYmd=str_replace(".", "-", $schYmd);
+
+// get day
+$day=date('w', strtotime($schYmd));
 
 // check blank has values
 if($cols->item($day)->nodeValue==null){
@@ -87,7 +90,7 @@ if($schMmealScCode==3){
 }
 
 // no meal
-if($final==null){
+if($final==null && $final=""){
     $final="오늘은 급식이 없습니다.";
 }
 
@@ -98,13 +101,11 @@ $array = array(
     '학교 명' => $insttNm,
     '학교 종류' => $schulCrseScCode,
     '급식 종류' => $schMmealScCode,
-    '날짜' => $today,
+    '날짜' => $schYmd,
     '메뉴' => $final
 );
 
-// json encoding
-$json = json_encode($array, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
-
-// echo json
-echo $json;
+$fp = fopen('meal.json', 'w');
+fwrite($fp, json_encode($array, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+fclose($fp);
 ?>
