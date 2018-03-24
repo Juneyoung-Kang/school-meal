@@ -17,7 +17,7 @@
 * Licensed under The MIT License
 */
 
-error_reporting(0);                           // error reporting disable
+//error_reporting(0);                           // error reporting disable
 header("Content-type: application/json; charset=UTF-8");        // json type and UTF-8 encoding
 
 require "simple_html_dom.php";                // use 'simple_html_dom.php'
