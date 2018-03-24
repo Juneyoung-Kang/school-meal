@@ -16,9 +16,46 @@ GET|schulCode|학교코드|
 GET|insttNm|학교이름|
 GET|schulCrseScCode|학교종류코드|
 GET|schMmealScCode|급식종류코드|
+GET|schYmd|날짜|
 
-- 기본 URL : [juneyoung.me/api/school-meal/meal_api.php](juneyoung.me/api/school-meal/meal_api.php)<br>
-- 예시 URL : [http://juneyoung.me/api/school-meal/meal_api.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2/](http://juneyoung.me/api/school-meal/meal_api.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2/)
+- 기본 URL : [http://juneyoung.kr/api/school-meal/meal_api.php](http://juneyoung.kr/api/school-meal/meal_api.php)<br>
+- 예시 URL : [http://juneyoung.kr/api/school-meal/meal_api.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2](http://juneyoung.kr/api/school-meal/meal_api.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2)
+
+## 세부 사항
+
+- meal_api.php
+    - 정의 : 현재 나이스에 등록되어 있는 급식 데이터를 파싱합니다.
+    - URL : [http://juneyoung.kr/api/school-meal/meal_api.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2](http://juneyoung.kr/api/school-meal/meal_api.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2)
+    - Parameter : countryCode, schulCode, insttNm, schulCrseScCode, schMmealScCode
+    - Output : Json 출력(교육청 코드. 학교코드, 학교이름, 학교종류코드, 급식종류코드, 날짜, 급식데이터)
+    - 기타 : meal_api.php는 UTC 기준 시간으로 9시간의 시차가 발생합니다. 이를 수정하기 위해서는 meal_api_today.php를 사용하세요.
+
+- meal_api_custom.php
+    - 정의 : 해당 날짜에 나이스에 등록되어 있는 급식 데이터를 파싱합니다.
+    - URL : [http://juneyoung.kr/api/school-meal/meal_api_custom.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2&schYmd=2018.03.05](http://juneyoung.kr/api/school-meal/meal_api_custom.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2&schYmd=2018.03.05)
+    - Parameter : countryCode, schulCode, insttNm, schulCrseScCode, schMmealScCode, schYmd
+    - Output : Json 출력(교육청 코드. 학교코드, 학교이름, 학교종류코드, 급식종류코드, 선택한 날짜, 급식데이터)
+
+- meal_api_today.php
+    - 정의 : 현재 나이스에 등록되어 있는 오늘의 급식 데이터를 파싱한 후 meal.json 파일을 생성합니다.
+    - URL : [http://juneyoung.kr/api/school-meal/meal_api_today.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2](http://juneyoung.kr/api/school-meal/meal_api_today.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2)
+    - Parameter : countryCode, schulCode, insttNm, schulCrseScCode, schMmealScCode
+    - Output : Json 파일(교육청 코드. 학교코드, 학교이름, 학교종류코드, 급식종류코드, 오늘 날짜, 급식데이터)
+    - 기타 : meal_api_today.php와 meal_api_tomorrow.php, meal_api_output.php는 서버에 meal.json이라는 파일을 생성하고 화면상에는 아무 것도 표시되지 않습니다.
+
+- meal_api_tomorrow.php
+    - 정의 : 현재 나이스에 등록되어 있는 내일의 급식 데이터를 파싱한 후 meal.json 파일을 생성합니다.
+    - URL : [http://juneyoung.kr/api/school-meal/meal_api_tomorrow.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2](http://juneyoung.kr/api/school-meal/meal_api_tomorrow.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2)
+    - Parameter : countryCode, schulCode, insttNm, schulCrseScCode, schMmealScCode
+    - Output : Json 파일(교육청 코드. 학교코드, 학교이름, 학교종류코드, 급식종류코드, 내일 날짜, 급식데이터)
+    - 기타 : meal_api_today.php와 meal_api_tomorrow.php, meal_api_output.php는 서버에 meal.json이라는 파일을 생성하고 화면상에는 아무 것도 표시되지 않습니다.
+
+- meal_api_output.php
+    - 정의 : 현재 나이스에 등록되어 있는 급식 데이터를 파싱한 후 meal.json 파일을 생성합니다.
+    - URL : [http://juneyoung.kr/api/school-meal/meal_api_output.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2](http://juneyoung.kr/api/school-meal/meal_api_output.php?countryCode=stu.goe.go.kr&schulCode=J100004922&insttNm=교하고등학교&schulCrseScCode=4&schMmealScCode=2)
+    - Parameter : countryCode, schulCode, insttNm, schulCrseScCode, schMmealScCode
+    - Output : Json 파일(교육청 코드. 학교코드, 학교이름, 학교종류코드, 급식종류코드, 날짜, 급식데이터)
+    - 기타 : meal_api_today.php와 meal_api_tomorrow.php, meal_api_output.php는 서버에 meal.json이라는 파일을 생성하고 화면상에는 아무 것도 표시되지 않습니다. meal_api_output.php는 UTC 기준 시간으로 9시간의 시차가 발생합니다. 이를 수정하기 위해서는 meal_api_today.php를 사용하세요.
 
 ### 교육청 코드(countryCode=)
 - 서울시 교육청 : stu.sen.go.kr
@@ -53,6 +90,9 @@ GET|schMmealScCode|급식종류코드|
 - 중식 : 2
 - 석식 : 3
 
+### 날짜(schYmd=)
+- 예시 : 2018.01.01
+
 ## 출력
 ```json
 {
@@ -67,4 +107,4 @@ GET|schMmealScCode|급식종류코드|
 ```
 
 ## 개발자
-Juneyoung KANG <juneyoung@juneyoung.me>
+Juneyoung KANG <juneyoung@juneyoung.kr>
