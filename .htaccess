@@ -4,4 +4,3 @@ Options -Indexes
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 AddType application/x-httpd-php .php
-php_flag allow_url_fopen 1
