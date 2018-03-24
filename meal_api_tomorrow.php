@@ -6,7 +6,7 @@
 * Juneyoung KANG <juneyoung@juneyoung.kr>
 * Gyoha High School
 *
-* Creates a today school meal JSON file from the NEIS webpage.
+* Creates a tomorrow school meal JSON file from the NEIS webpage.
 * Github : https://github.com/Juneyoung-Kang/school-meal/
 *
 * How to use?
@@ -28,8 +28,8 @@ $insttNm = $_GET['insttNm'];                  // school name
 $schulCrseScCode = $_GET['schulCrseScCode'];  // school levels code
 $schMmealScCode = $_GET['schMmealScCode'];    // meal kinds code
 $time = time();
-$today = date("Y.m.d", strtotime("+9 hours", $time));
-$schYmd = $today;
+$tomorrow = date("Y.m.d", strtotime("+33 hours", $time));
+$schYmd = $tomorrow;
 
 $MENU_URL = "sts_sci_md01_001.do";            // view weekly table
 
@@ -105,7 +105,7 @@ $array = array(
     '메뉴' => $final
 );
 
-$fp = fopen('meal.json', 'w');
+$fp = fopen('meal_tom.json', 'w');
 fwrite($fp, json_encode($array, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 fclose($fp);
 ?>
